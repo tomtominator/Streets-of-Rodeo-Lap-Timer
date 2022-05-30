@@ -10,8 +10,18 @@ The operation of the distance sensor is slightly complicated but luckily there i
 
 We modeled our custom 7 segment display off of this one we bought. It is a common anode display. This datasheet was useful: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/FDA-5.pdf
 
+## Display
 
+### Circuit Diagrams
+  
+![Segment Diagram](Segment-Cir-Diagram.JPG)  
 
+Above is the circuit diagram for a given segment. We will be running the LEDS at 20mA and controlling the segments with a PNP transistor switched by the launchpad. The 31 ohms was calculated to get the desired 20mA/LED number.
+
+![Digit Diagram](Digit-Cir-Diagram.JPG)   
+
+The 5mA current coming into the board per transistor is calculated using the hfe number provided by the transistor datasheet and this equation: I_C = (hfe) * I_B. For a PNP we are sinking current. The total current into the board is 35mA. The board must only dissapate about .175W. Note that only 1 digit is ever on at a time. The total draw of the digit from the power source is 160mA * 7 = 1.12A --at 5V--> 5.6W 
+  
 
 ## Ingredients:  
 
