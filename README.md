@@ -21,3 +21,10 @@ We modeled our custom 7 segment display off of this one we bought. It is a commo
 - TI Launchpad MSP-EXP430F5529LP: https://www.ti.com/tool/MSP-EXP430F5529LP
 - 224 Red LEDS: https://www.allelectronics.com/item/led-513/5mm-red-led/1.html
 - 28 PNP Transistors: https://www.allelectronics.com/item/2n3905/2n3905-pnp-to-92-transistor/1.html
+
+### Spec/Datasheets:  
+
+Transistors: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/LED-513.pdf
+Launchpad: https://www.ti.com/lit/ug/slau533d/slau533d.pdf?ts=1653799657399
+Sensor: https://web.eece.maine.edu/~zhu/book/lab/HC-SR04%20User%20Manual.pdf
+Display: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/FDA-5.pdf
