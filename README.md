@@ -24,7 +24,7 @@ We modeled our custom 7 segment display off of this one we bought. It is a commo
 
 ### Spec/Datasheets:  
 
-Transistors: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/LED-513.pdf
-Launchpad: https://www.ti.com/lit/ug/slau533d/slau533d.pdf?ts=1653799657399
-Sensor: https://web.eece.maine.edu/~zhu/book/lab/HC-SR04%20User%20Manual.pdf
-Display: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/FDA-5.pdf
+- Transistors: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/LED-513.pdf
+- Launchpad: https://www.ti.com/lit/ug/slau533d/slau533d.pdf?ts=1653799657399
+- Sensor: https://web.eece.maine.edu/~zhu/book/lab/HC-SR04%20User%20Manual.pdf
+- Display: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/FDA-5.pdf
