@@ -4,7 +4,7 @@
 
 This project is a motion detecting lap timer with a 4 digit 7 segement display for the timer. 
 
-The initial idea was to use a lasor sensor that would trigger when we passed through. It wasn't ideal to have to place objects on both sides and possibly even have a wire tracing back over the track. I remembered using sonic distance sensors in physics class which only had 1 emitted and were suprisingly accurate. We happened to have a ultrasonic distance sensor and Launchpad lying around so we built the project around that. 
+The initial idea was to use a laser sensor that would trigger when we passed through. It wasn't ideal to have to place objects on both sides and possibly even have a wire tracing back over the track. I remembered using sonic distance sensors in physics class which only had 1 emitted and were suprisingly accurate. We happened to have a ultrasonic distance sensor and Launchpad lying around so we built the project around that. 
 
 The operation of the distance sensor is slightly complicated but luckily there is plenty of code on the internet for this sensor. This is the explaination we used and base code we modified: https://create.arduino.cc/projecthub/abdularbi17/ultrasonic-sensor-hc-sr04-with-arduino-tutorial-327ff6
 
