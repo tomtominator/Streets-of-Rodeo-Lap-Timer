@@ -22,6 +22,12 @@ Above is the circuit diagram for a given segment. We will be running the LEDS at
 
 The 5mA current coming into the board per transistor is calculated using the hfe number provided by the transistor datasheet and this equation: I_C = (hfe) * I_B. For a PNP we are sinking current. The total current into the board is 35mA. The board must only dissapate about .175W. Note that only 1 digit is ever on at a time. The total draw of the digit from the power source is 160mA * 7 = 1.12A --at 5V--> 5.6W 
   
+### Experimental Results
+
+- Total segment current = 100mA  
+- Current into base of 2N3905 = 3.5mA  
+- Transistor base resistance: 150 || 270 = 96 ohms  
+- No need for resistors for each LED, the transistor base resistor on limits the current flow from emitter to collector
 
 ## Ingredients:  
 
