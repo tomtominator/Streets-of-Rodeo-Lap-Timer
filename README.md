@@ -34,7 +34,8 @@ The 5mA current coming into the board per transistor is calculated using the hfe
 
 ### Spec/Datasheets:  
 
-- Transistors: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/LED-513.pdf
+- Transistors: https://www.mouser.com/datasheet/2/308/FairchildSemiconductor_16142055386277-1191860.pdf
+- LEDS: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/LED-513.pdf
 - Launchpad: https://www.ti.com/lit/ug/slau533d/slau533d.pdf?ts=1653799657399
 - Sensor: https://web.eece.maine.edu/~zhu/book/lab/HC-SR04%20User%20Manual.pdf
 - Display: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/FDA-5.pdf
