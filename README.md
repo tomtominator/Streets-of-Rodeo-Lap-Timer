@@ -27,16 +27,19 @@ The 5mA current coming into the board per transistor is calculated using the hfe
 - Total segment current = 100mA  
 - Current into base of 2N3905 = 3.5mA  
 - Transistor base resistance: 150 || 270 = 96 ohms  
-- No need for resistors for each LED, the transistor base resistor on limits the current flow from emitter to collector
+- No need for resistors for each LED, the transistor base resistor on limits the current flow from emitter to collector  
+
+These results will give a general estimate to make sure we don't exceed any of our parts power limits. This is also a sanity check that calculations were done correctly.  
 
 ## Ingredients:  
 
 - HC-SR04 Ultrasonic Distance Sensor: https://www.amazon.com/SainSmart-HC-SR04-Ranging-Detector-Distance/dp/B004U8TOE6 
 - 4-Digit 7 Segement Display (Deprecated): https://www.allelectronics.com/item/fda-5/4-digit-red-clock-display-0.4-digits/1.html  
-- 3-24V Beeper: https://www.allelectronics.com/item/sbz-324/3-24-vdc-beeper/1.html  
 - TI Launchpad MSP-EXP430F5529LP: https://www.ti.com/tool/MSP-EXP430F5529LP
-- 224 Red LEDS: https://www.allelectronics.com/item/led-513/5mm-red-led/1.html
-- 28 PNP Transistors: https://www.allelectronics.com/item/2n3905/2n3905-pnp-to-92-transistor/1.html
+- 232 Red LEDS: https://www.allelectronics.com/item/led-513/5mm-red-led/1.html
+- 30 PNP Transistors: https://www.allelectronics.com/item/2n3905/2n3905-pnp-to-92-transistor/1.html
+- LM317 Voltage Regulator
+- Switch, 10K pot, lots of resistors(mostly 270ohm)
 
 ### Spec/Datasheets:  
 
@@ -45,3 +48,4 @@ The 5mA current coming into the board per transistor is calculated using the hfe
 - Launchpad: https://www.ti.com/lit/ug/slau533d/slau533d.pdf?ts=1653799657399
 - Sensor: https://web.eece.maine.edu/~zhu/book/lab/HC-SR04%20User%20Manual.pdf
 - Display: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/FDA-5.pdf
+- Voltage Regulator: https://www.ti.com/document-viewer/LM317A/datasheet/features-snvsac20075#SNVSAC20075
