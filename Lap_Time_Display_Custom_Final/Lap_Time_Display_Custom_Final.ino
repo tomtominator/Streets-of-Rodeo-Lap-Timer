@@ -9,8 +9,10 @@
 // Written by: Thomas Matthew 6/15/2022
 
 //---Parameters---
-#define REFRESH_RATE 15 // Digit refreshes every REFERSH_RATE/4 and distance sensor samples evert REFERSH_RATE
-// Note that sensor operation takes some time between displaying digits but it u sec vs milli sec
+#define REFRESH_RATE 15 // Decrease REFRESH_RATE to refresh digits quicker and sample more often
+                        // Digit refreshes every REFERSH_RATE/4 and distance sensor samples evert REFERSH_RATE
+                        // Note 1: LAP_COOLDOWN dependency on REFRESH_RATE
+                        // Note 2: that sensor operation takes some time between displaying the digits but it micro sec vs milli sec (if sensor is not working properly it will be significant amount of time)
 #define LAP_COOLDOWN 40 //Laps can happen only every LAP_COOLDOWN * REFRESH_RATE (= 2) sec
 
 #define WOBBLE 5 // Must change more than this range to be considered a real change in measured distance
