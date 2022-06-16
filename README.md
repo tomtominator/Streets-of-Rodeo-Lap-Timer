@@ -24,12 +24,17 @@ The 5mA current coming into the board per transistor is calculated using the hfe
   
 ### Experimental Results
 
-- Total segment current = 100mA  
+- Total segment current = 100mA - less than expected  
 - Current into base of 2N3905 = 3.5mA  
 - Transistor base resistance: 150 || 270 = 96 ohms  
 - No need for resistors for each LED, the transistor base resistor on limits the current flow from emitter to collector  
+- LEDS plenty bright at this power level, likely want to be able to reduce brightness with pot somehow
 
 These results will give a general estimate to make sure we don't exceed any of our parts power limits. This is also a sanity check that calculations were done correctly.  
+
+### Custom Display Black Box Circuit Diagram
+
+
 
 ## Ingredients:  
 
