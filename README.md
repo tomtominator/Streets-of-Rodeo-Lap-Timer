@@ -34,7 +34,25 @@ These results will give a general estimate to make sure we don't exceed any of o
 
 ### Custom Display Black Box Circuit Diagram
 
+### STL Files Descriptions
 
+- 1 Segment File
+Includes 8 holes for each led to be inserted and soldered on the back
+
+- Slip in Plate
+Accepts 1 segment plate to slip in firmly, allowing space for soldered connections. Wires are to be routed through the center hole in the back. Other 2 holes used for mounting to final backplate.
+
+- 1 digit linked
+Not included in our final design but would save alot of time and effort. Instead of printing segments individually this file includes 7 connected with proper spacing. Recommended for printers with ABL or a very nicely leveled bed. 
+
+### Assembly
+After 8 LEDs are soldered in paralell in each segment, power wires can be routed through the slip in plate, and the segment can be firmly inserted. (If using the individual plates, each should be mounted to a backplate prior to doing this.) 
+
+Each segment with LEDs and power wires are pressed into their plates and all wires are routed through the slip in plate and through holes drilled in the backplate. All wires are easily accesable in the backplate for later connections to transistors and board. 
+
+Segments could be painted matt black for a cleaner look.
+
+All switches and pots can be mounted on the backplate 
 
 ## Ingredients:  
 
