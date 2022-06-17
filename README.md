@@ -58,7 +58,7 @@ All switches and pots can be mounted on the backplate
 
 We had to use a voltage regulator to provide both 5 and a variable 3.3-2.3V from the 5V power supply. We used the LM317 variable voltage regulator with a 10K potentionmeter. This explanation video was extremely helpful: https://www.youtube.com/watch?v=IjJWWGPjc-w.  
 
-![Voltage Regulator Diagram](Diagrams/VoltageRegulatorDiagram.png)   
+![Voltage Regulator Diagram](Diagrams/VoltageRegulatorDiagram.JPG)   
 
 Our 7 segment display was slightly different from the standard design to make wiring easier. However, this made the pinout quite busy:  
 
