@@ -2,9 +2,9 @@
 
 ## Description  
 
-This project is a motion detecting lap timer with a 4 digit 7 segement display for the timer. 
+This project is a motion detecting lap timer with a custom built 4 digit 7 segement display for the timer. 
 
-The initial idea was to use a laser sensor that would trigger when we passed through. It wasn't ideal to have to place objects on both sides and possibly even have a wire tracing back over the track. I remembered using sonic distance sensors in physics class which only had 1 emitted and were suprisingly accurate. We happened to have a ultrasonic distance sensor and Launchpad lying around so we built the project around that. 
+The initial idea was to use a laser sensor that would trigger when we passed through. It wasn't ideal to have to place objects on both sides and possibly even have a wire tracing back over the track. I remembered using sonic distance sensors in physics class which only had 1 emitter and were suprisingly accurate. We happened to have a ultrasonic distance sensor and microcontroller lying around so we built the project around that. 
 
 The operation of the distance sensor is slightly complicated but luckily there is plenty of code on the internet for this sensor. This is the explanation we used and base code we modified: https://create.arduino.cc/projecthub/abdularbi17/ultrasonic-sensor-hc-sr04-with-arduino-tutorial-327ff6
 
@@ -54,6 +54,19 @@ Segments could be painted matt black for a cleaner look.
 
 All switches and pots can be mounted on the backplate 
 
+# Final Design
+
+We had to use a voltage regulator to provide both 5 and a variable 3.3-2.3V from the 5V power supply. We used the LM317 variable voltage regulator with a 10K potentionmeter. This explanation video was extremely helpful: https://www.youtube.com/watch?v=IjJWWGPjc-w.  
+
+![Voltage Regulator Diagram](VoltageRegulatorDiagram.png)   
+
+Our 7 segment display was slightly different from the standard design to make wiring easier. However, this made the pinout quite busy:  
+
+![Custom 7 Segment Display Pinout](7SegDisplayPinout.JPG)   
+
+Luckily the launchpad has many i/o pins so this simplified our hardware and lighting up a sigle digit at a time (done this way to save on power and prevent too much current into the launchpad) could be done in the code.  
+The distance sensor was connected to the launchpad as well. The whole assembly was controlled by c++ code run on the launchpad, switching all the segments and operating the distance sensor.
+
 ## Ingredients:  
 
 - HC-SR04 Ultrasonic Distance Sensor: https://www.amazon.com/SainSmart-HC-SR04-Ranging-Detector-Distance/dp/B004U8TOE6 
@@ -72,3 +85,6 @@ All switches and pots can be mounted on the backplate
 - Sensor: https://web.eece.maine.edu/~zhu/book/lab/HC-SR04%20User%20Manual.pdf
 - Display: https://www.allelectronics.com/mas_assets/media/allelectronics2018/spec/FDA-5.pdf
 - Voltage Regulator: https://www.ti.com/document-viewer/LM317A/datasheet/features-snvsac20075#SNVSAC20075
+
+
+Daniel and Thomas Matthew 2022
