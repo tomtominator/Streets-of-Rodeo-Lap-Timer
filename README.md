@@ -32,8 +32,6 @@ The 5mA current coming into the board per transistor is calculated using the hfe
 
 These results will give a general estimate to make sure we don't exceed any of our parts power limits. This is also a sanity check that calculations were done correctly.  
 
-### Custom Display Black Box Circuit Diagram
-
 ### STL Files Descriptions
 
 - 1 Segment File
