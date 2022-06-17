@@ -14,11 +14,11 @@ We modeled our custom 7 segment display off of this one we bought. It is a commo
 
 ### Circuit Diagrams
   
-![Segment Diagram](Segment-Cir-Diagram.JPG)  
+![Segment Diagram](Diagrams/Segment-Cir-Diagram.JPG)  
 
 Above is the circuit diagram for a given segment. We will be running the LEDS at 20mA and controlling the segments with a PNP transistor switched by the launchpad. The 31 ohms was calculated to get the desired 20mA/LED number.
 
-![Digit Diagram](Digit-Cir-Diagram.JPG)   
+![Digit Diagram](Diagrams/Digit-Cir-Diagram.JPG)   
 
 The 5mA current coming into the board per transistor is calculated using the hfe number provided by the transistor datasheet and this equation: I_C = (hfe) * I_B. For a PNP we are sinking current. The total current into the board is 35mA. The board must only dissapate about .175W. Note that only 1 digit is ever on at a time. The total draw of the digit from the power source is 160mA * 7 = 1.12A --at 5V--> 5.6W 
   
@@ -58,11 +58,11 @@ All switches and pots can be mounted on the backplate
 
 We had to use a voltage regulator to provide both 5 and a variable 3.3-2.3V from the 5V power supply. We used the LM317 variable voltage regulator with a 10K potentionmeter. This explanation video was extremely helpful: https://www.youtube.com/watch?v=IjJWWGPjc-w.  
 
-![Voltage Regulator Diagram](VoltageRegulatorDiagram.png)   
+![Voltage Regulator Diagram](Diagrams/VoltageRegulatorDiagram.png)   
 
 Our 7 segment display was slightly different from the standard design to make wiring easier. However, this made the pinout quite busy:  
 
-![Custom 7 Segment Display Pinout](7SegDisplayPinout.JPG)   
+![Custom 7 Segment Display Pinout](Diagrams/7SegDisplayPinout.JPG)   
 
 Luckily the launchpad has many i/o pins so this simplified our hardware and lighting up a sigle digit at a time (done this way to save on power and prevent too much current into the launchpad) could be done in the code.  
 The distance sensor was connected to the launchpad as well. The whole assembly was controlled by c++ code run on the launchpad, switching all the segments and operating the distance sensor.
