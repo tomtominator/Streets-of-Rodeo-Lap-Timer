@@ -6,16 +6,24 @@
 //    but we only power 1 digit at a time to limit how much current the microcontroller has to sink. Powering 1 digit it sinks about 45mA
 //   Note 2: pins 6_1 and 6_2 on the microcontroller don't work; can't write a high value to them
 
-// Written by: Thomas Matthew 6/15/2022
+// Written by: Thomas Matthew 6/6/2022
+// Last Updated: 6/18/22
+
+// --- Feature Flags ---
+// 1/0 values for enable/disable of certain sections of the code
+#define DEBUG 0 // Currently only enables/disables serial communication with computer
+
+
+// --- End ---
 
 //---Parameters---
 #define REFRESH_RATE 15 // Decrease REFRESH_RATE to refresh digits quicker and sample more often
                         // Digit refreshes every REFERSH_RATE/4 and distance sensor samples evert REFERSH_RATE
                         // Note 1: LAP_COOLDOWN dependency on REFRESH_RATE
                         // Note 2: that sensor operation takes some time between displaying the digits but it micro sec vs milli sec (if sensor is not working properly it will be significant amount of time)
-#define LAP_COOLDOWN 40 //Laps can happen only every LAP_COOLDOWN * REFRESH_RATE (= 2) sec
 
-#define WOBBLE 5 // Must change more than this range to be considered a real change in measured distance
+#define SENSE_COOLDOWN 10 // Only operate the sensor every SENSE_COOLDOWN loops of the main loop (sense rate: SENSE_COOLDOWN * REFRESH_RATE = 150ms)
+#define LAP_COOLDOWN 40 //Laps can happen only every LAP_COOLDOWN * REFRESH_RATE (= 2) sec
 #define PASS_DIS_CHANGE 30 // Distance decreases by this much for a valid pass - lower to make more sensitive. Raise to decrease noise
 //---End Parameters---
 
@@ -30,9 +38,10 @@ int distance; //  distance measurement
 int last_distance;
 int laps; // number of times a object passes
 int lap_cooldown_cnt;
+int sense_cooldown_cnt;
 
-float lap_time; //Lap time in ms
-float ongoing_lap_time;
+unsigned long lap_time; //Lap time in ms
+unsigned long ongoing_lap_time;
 long lap_start;
 long lap_end;
 // ---------------- END ----------------
@@ -80,9 +89,6 @@ long lap_end;
 #define G_4 P2_3 // orange
  
 
-//#define SWITCHING_SPEED 10 //how quickly rotates between digits in ms
-// = REFRESH_RATE/4
-
 // Truth table for segements for digit
 // ith Row holds the segments for the ith digit in A,B,C, ... order
 // 1 value indicates light up that segment
@@ -100,7 +106,7 @@ int dsegs[10][7] = {
   };
 
 //Decimal number to be displayed (converted to display_*)
-float display_number;
+unsigned long display_number;
 int temp;
 
 // These set what digits are being displayed
@@ -112,14 +118,22 @@ int decimal_place; //encodes where to place decimal point
 // (1, ones number, 2 tens number, 3 hundreds number, 4 thousands number)
 // ---------------- END ----------------
 
+// ----------- FUNCTION DECLARATIONS -----------
+
+//TBD - next commit
+
+// ----------- END -----------
+
 
 void setup() {
   laps = 1;
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  Serial.begin(9600); 
-  Serial.println("Ultrasonic Sensor HC-SR04 Test"); 
-  Serial.println("with TI Launchpad MSP-EXP430F5529LP");
+  if (DEBUG) {
+    Serial.begin(9600); 
+    Serial.println("Ultrasonic Sensor HC-SR04 Test"); 
+    Serial.println("with TI Launchpad MSP-EXP430F5529LP");
+  }
 
   // ----------------------------------------------------
   pinMode(A_1, OUTPUT);
@@ -161,38 +175,46 @@ void setup() {
 
 void loop() {
   
-  //----Measure Distance using HC-SR04----
-  digitalWrite(trigPin, LOW); // Clears the trigPin condition
-  delayMicroseconds(2);
-  digitalWrite(trigPin, HIGH); // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
-  delayMicroseconds(10);
-  digitalWrite(trigPin, LOW);
-  duration = pulseIn(echoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
-  // Calculating the distance
-  distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
-  
-  Serial.println(distance);
-  //----Lap Time Measurement----
-  lap_end = millis();
-  ongoing_lap_time = lap_end - lap_start;
-  ongoing_lap_time = ongoing_lap_time / 1000;
-   
-  //Check that distance has changed outside of some range to account for noise and see if the measured distance has gotten a lot closer
-  if (lap_cooldown_cnt > LAP_COOLDOWN && (distance - PASS_DIS_CHANGE) > 0 && !((last_distance - WOBBLE) < distance && distance < (last_distance + WOBBLE)) && (distance - PASS_DIS_CHANGE) < last_distance) { 
-    lap_time = ongoing_lap_time;
-    Serial.println("------------------------Object passed----------------------");
-    Serial.print("Lap Number: ");
-    Serial.println(laps);
-    Serial.print("Lap Time: ");
-    Serial.println(lap_time);
+  if (lap_cooldown_cnt > LAP_COOLDOWN && sense_cooldown_cnt > SENSE_COOLDOWN) {
+    sense_cooldown_cnt = 0;
+
+    //----Measure Distance using HC-SR04----
+    digitalWrite(trigPin, LOW); // Clears the trigPin condition
+    delayMicroseconds(2);
+    digitalWrite(trigPin, HIGH); // Sets the trigPin HIGH (ACTIVE) for 10 microseconds
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    duration = pulseIn(echoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
+    // Calculating the distance
+    distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
     
-    laps = laps + 1;
-    lap_cooldown_cnt = 0;
-    lap_start = millis();
+    //----Lap Time Measurement----
+    lap_end = millis();
+    ongoing_lap_time = lap_end - lap_start;
+    ongoing_lap_time = ongoing_lap_time / 1000;
+    
+    // Object Passed if distance decreased by at least PASS_DIS_CHANGE 
+    //    Note: object must be further than PASS_DIS_CHANGE
+    if ((distance - PASS_DIS_CHANGE) > 0 && (distance - PASS_DIS_CHANGE) < last_distance) { 
+      lap_time = ongoing_lap_time;
+      laps = laps + 1;
+      lap_cooldown_cnt = 0;
+      lap_start = millis();
+
+      if (DEBUG) {
+        Serial.println("------------------------Object passed----------------------");
+        Serial.print("Lap Number: ");
+        Serial.println(laps);
+        Serial.print("Lap Time: ");
+        Serial.println(lap_time);
+      }
+    }
+
+    last_distance = distance;
   }
 
-  last_distance = distance;
   lap_cooldown_cnt = lap_cooldown_cnt + 1;
+  sense_cooldown_cnt = sense_cooldown_cnt + 1;
 
   // ------------------- DISPLAY RECORDED TIME -------------------
 
@@ -204,18 +226,18 @@ void loop() {
     display_number = ongoing_lap_time;
   }
   
-
   
-  //Get the first 4 digits of input float
-  if (display_number > 1000) {      temp = display_number;          decimal_place = 4;
-  } else if(display_number > 100) { temp = display_number * 10;     decimal_place = 3;
-  } else if(display_number > 10) {  temp = display_number * 100;    decimal_place = 2;
-  } else {                        temp = display_number * 1000;   decimal_place = 1; }
-  display_digit_1 = temp / 1000;
-  display_digit_2 = (temp / 100) % 10;
-  display_digit_3 = (temp / 10) % 10;
-  display_digit_4 = temp % 10;
-
+  //Get the first 4 digits of input unsigned long
+  if (lap_cooldown_cnt < LAP_COOLDOWN && lap_cooldown_cnt == 1) { // Display number doesnt change during LAP_COOLDOWN so dont recalculate
+    if (display_number > 1000) {      temp = display_number;          decimal_place = 4;
+    } else if(display_number > 100) { temp = display_number * 10;     decimal_place = 3;
+    } else if(display_number > 10) {  temp = display_number * 100;    decimal_place = 2;
+    } else {                        temp = display_number * 1000;   decimal_place = 1; }
+    display_digit_1 = temp / 1000;
+    display_digit_2 = (temp / 100) % 10;
+    display_digit_3 = (temp / 10) % 10;
+    display_digit_4 = temp % 10;
+  }
   // --- 1st Digit ---
   if (dsegs[display_digit_1][0] == 1) { digitalWrite(A_1, LOW); } else { digitalWrite(A_1, HIGH); }
   if (dsegs[display_digit_1][1] == 1) { digitalWrite(B_1, LOW); } else { digitalWrite(B_1, HIGH); }
