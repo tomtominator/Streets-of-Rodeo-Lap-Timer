@@ -40,8 +40,8 @@ int laps; // number of times a object passes
 int lap_cooldown_cnt;
 int sense_cooldown_cnt;
 
-unsigned long lap_time; //Lap time in ms
-unsigned long ongoing_lap_time;
+float lap_time; //Lap time in ms
+float ongoing_lap_time;
 long lap_start;
 long lap_end;
 // ---------------- END ----------------
@@ -106,7 +106,7 @@ int dsegs[10][7] = {
   };
 
 //Decimal number to be displayed (converted to display_*)
-unsigned long display_number;
+float display_number;
 int temp;
 
 // These set what digits are being displayed
@@ -232,6 +232,9 @@ void loop() {
     display_digit_3 = (temp / 10) % 10;
     display_digit_4 = temp % 10;
   }
+  
+  // --- DISPLAY DIGITS ---
+  // by scanning through them
   // --- 1st Digit ---
   if (dsegs[display_digit_1][0] == 1) { digitalWrite(A_1, LOW); } else { digitalWrite(A_1, HIGH); }
   if (dsegs[display_digit_1][1] == 1) { digitalWrite(B_1, LOW); } else { digitalWrite(B_1, HIGH); }
