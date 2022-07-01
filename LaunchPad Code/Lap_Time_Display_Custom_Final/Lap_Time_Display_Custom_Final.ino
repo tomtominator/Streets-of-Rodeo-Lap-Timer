@@ -7,7 +7,7 @@
 //   Note 2: pins 6_1 and 6_2 on the microcontroller don't work; can't write a high value to them
 
 // Written by: Thomas Matthew 6/6/2022
-// Last Updated: 6/18/22
+// Last Updated: 7/1/22
 
 // --- Feature Flags ---
 // 1/0 values for enable/disable of certain sections of the code
@@ -17,13 +17,13 @@
 // --- End ---
 
 //---Parameters---
-#define REFRESH_RATE 15 // Decrease REFRESH_RATE to refresh digits quicker and sample more often
+#define REFRESH_RATE 20 // Decrease REFRESH_RATE to refresh digits quicker and sample more often
                         // Digit refreshes every REFERSH_RATE/4 and distance sensor samples evert REFERSH_RATE
                         // Note 1: LAP_COOLDOWN dependency on REFRESH_RATE
                         // Note 2: that sensor operation takes some time between displaying the digits but it micro sec vs milli sec (if sensor is not working properly it will be significant amount of time)
 
 #define SENSE_COOLDOWN 10 // Only operate the sensor every SENSE_COOLDOWN loops of the main loop (sense rate: SENSE_COOLDOWN * REFRESH_RATE = 150ms)
-#define LAP_COOLDOWN 40 //Laps can happen only every LAP_COOLDOWN * REFRESH_RATE (= 2) sec
+#define LAP_COOLDOWN 125 //Laps can happen only every LAP_COOLDOWN(125) * REFRESH_RATE(20) = 2.5 sec
 #define PASS_DIS_CHANGE 30 // Distance decreases by this much for a valid pass - lower to make more sensitive. Raise to decrease noise
 //---End Parameters---
 
@@ -118,13 +118,6 @@ int decimal_place; //encodes where to place decimal point
 // (1, ones number, 2 tens number, 3 hundreds number, 4 thousands number)
 // ---------------- END ----------------
 
-// ----------- FUNCTION DECLARATIONS -----------
-
-//TBD - next commit
-
-// ----------- END -----------
-
-
 void setup() {
   laps = 1;
   pinMode(trigPin, OUTPUT);
@@ -218,17 +211,18 @@ void loop() {
 
   // ------------------- DISPLAY RECORDED TIME -------------------
 
-  //Display lap time for [LAP_COOLDOWN] seconds after object passes
-  // else display the time spent in current lap
-  if (lap_cooldown_cnt < LAP_COOLDOWN) {
-    display_number = lap_time;
-  } else {
-    display_number = ongoing_lap_time;
-  }
-  
-  
+  // Note: ongoing_lap_time only updates on a SENSE
+
+  if (sense_cooldown_cnt == 1 || lap_cooldown_cnt == 1) { // Display number doesnt change during LAP_COOLDOWN so dont recalculate
+    //Display lap time for [LAP_COOLDOWN] seconds after object passes
+    // else display the time spent in current lap
+    if (lap_cooldown_cnt < LAP_COOLDOWN) {
+      display_number = lap_time;
+    } else {
+      display_number = ongoing_lap_time;
+    }
+
   //Get the first 4 digits of input unsigned long
-  if (lap_cooldown_cnt < LAP_COOLDOWN && lap_cooldown_cnt == 1) { // Display number doesnt change during LAP_COOLDOWN so dont recalculate
     if (display_number > 1000) {      temp = display_number;          decimal_place = 4;
     } else if(display_number > 100) { temp = display_number * 10;     decimal_place = 3;
     } else if(display_number > 10) {  temp = display_number * 100;    decimal_place = 2;
