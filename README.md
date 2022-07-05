@@ -65,6 +65,15 @@ Our 7 segment display was slightly different from the standard design to make wi
 Luckily the launchpad has many i/o pins so this simplified our hardware and lighting up a sigle digit at a time (done this way to save on power and prevent too much current into the launchpad) could be done in the code.  
 The distance sensor was connected to the launchpad as well. The whole assembly was controlled by c++ code run on the launchpad, switching all the segments and operating the distance sensor.
 
+## Code
+
+The final version of the [code on the Launchpad](https://github.com/tomtominator/Streets-of-Rodeo-Lap-Timer/blob/main/LaunchPad%20Code/Lap_Time_Display_Custom_Final/Lap_Time_Display_Custom_Final.ino).  
+
+Possible Future Improvements:  
+Make main loop event driven by performing certain functions every amount of millis() difference, instead of using counters to trigger actions. (This way we actually sample every 200ms for example)  
+Make one of the digits a lap counter since we don't have hundreds place precision anyway
+
+
 ## Ingredients:  
 
 - HC-SR04 Ultrasonic Distance Sensor: https://www.amazon.com/SainSmart-HC-SR04-Ranging-Detector-Distance/dp/B004U8TOE6 
