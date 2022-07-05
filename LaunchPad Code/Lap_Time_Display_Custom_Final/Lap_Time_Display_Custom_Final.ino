@@ -11,7 +11,7 @@
 
 // --- Feature Flags ---
 // 1/0 values for enable/disable of certain sections of the code
-#define DEBUG 0 // Currently only enables/disables serial communication with computer
+#define DEBUG 0 // Enables/disables serial communication with computer for debugging
 
 
 // --- End ---
@@ -26,6 +26,7 @@
 #define SENSE_COOLDOWN 10 // Only operate the sensor every SENSE_COOLDOWN loops of the main loop (sense rate: SENSE_COOLDOWN * REFRESH_RATE = 200ms)
 #define LAP_COOLDOWN 125 //Laps can happen only every LAP_COOLDOWN(125) * REFRESH_RATE(20) = 2.5 sec
 #define PASS_DIS_CHANGE 30 // Distance decreases by this much for a valid pass - lower to make more sensitive. Raise to decrease noise
+#define WOBBLE 10 // Distance sensor must change by more than this to even consider an object has passed
 //---End Parameters---
 
 // ---------------- LAP TIME MEASUREMENT + HC-SR04 SECTION ----------------
@@ -196,15 +197,19 @@ void loop() {
       duration = pulseIn(echoPin, HIGH); // Reads the echoPin, returns the sound wave travel time in microseconds
       // Calculating the distance
       distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
-      
+      if (DEBUG) {
+        Serial.print("Sensed Distance:  ");
+        Serial.println(distance);
+        Serial.print("Last Distance:  ");
+        Serial.println(last_distance);
+      }
       // Object Passed if distance decreased by at least PASS_DIS_CHANGE 
       //    Note: object must be further than PASS_DIS_CHANGE
-      if ((distance - PASS_DIS_CHANGE) > 0 && (distance - PASS_DIS_CHANGE) < last_distance) { 
+      if ((distance - PASS_DIS_CHANGE) > 0 && !((last_distance - WOBBLE) < distance && distance < (last_distance + WOBBLE)) && (distance - PASS_DIS_CHANGE) < last_distance) { 
         lap_time = ongoing_lap_time;
         laps = laps + 1;
         lap_cooldown_cnt = 0;
         lap_start = millis();
-        last_distance = distance;
         if (DEBUG) {
           Serial.println("------------------------Object passed----------------------");
           Serial.print("Lap Number: ");
@@ -213,6 +218,7 @@ void loop() {
           Serial.println(lap_time);
         }
       }
+      last_distance = distance;
     }
   }
 
