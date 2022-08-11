@@ -69,7 +69,7 @@ The distance sensor was connected to the launchpad as well. The whole assembly w
 
 ![Picture of box and punguin sensor](images/PXL_20220809_234259224.MP.jpg) 
 
-Display board mounded to plywood box with main power switch and brightness dimmer mounted on the right side. The box is spray painted black to match the segments for a clean and professional look. A penguin themed 3d printed case for the distance sensor, raises it to the optimal 4 inches from the grouhd. Universal 3 prong power female power cable and 4 prong female sensor connectors are mounted on the bottom for easy setup and swappable cables.
+Display board mounded to plywood box with main power switch and brightness dimmer mounted on the right side. The box is spray painted black to match the segments for a clean and professional look. A penguin themed 3d printed case for the distance sensor, raises it to the optimal 4 inches from the ground. Universal 3 prong power female power cable and 4 prong female sensor connectors are mounted on the bottom for easy setup and swappable cables.
 
 ![Close up of penguin](images/PXL_20220809_234721478.jpg) 
 
