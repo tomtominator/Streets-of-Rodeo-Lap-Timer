@@ -34,7 +34,7 @@ View of the back cover easliy removed with the extraction of two screws on top o
 
 
 
-# Circuit, Code, and Design Descriptions
+# Detailed Construction
 
 ## Display
 
