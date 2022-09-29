@@ -2,7 +2,7 @@
 
 ## Project Description  
 
-As a destressing pastime, my brother and I ride our bikes around our driveway as fast as we can. How fast? This project helps us answer that question with precision. This project is a motion detecting lap timer with a custom built 4 digit 7 segement display for the timer. It uses a ultrasonic distance sensor combined with a custom 4 digit 7 segment common anode display. Its controlled by a cheap microcontroller and designed to be powered from a wall outlet. It consisted of lots of LED, resistor, and transistor soldering, 3D printing for the LED cases, circuit design to ensure we weren't exceeding the microcontrollers limits as described on the datasheet, and C++ code writing.  
+As a de-stressing pastime, my brother and I ride our bikes around our driveway as fast as we can. How fast? This project helps us answer that question with precision. This project is a motion detecting lap timer with a custom built 4 digit 7 segement display for the timer. It uses a ultrasonic distance sensor combined with a custom 4 digit 7 segment common anode display. Its controlled by a cheap microcontroller and designed to be powered from a wall outlet. It consisted of lots of LED, resistor, and transistor soldering, 3D printing for the LED cases, circuit design to ensure we weren't exceeding the microcontrollers limits as described on the datasheet, and C++ code writing.  
   
   
   
